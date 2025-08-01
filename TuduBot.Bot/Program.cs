@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TuduBot.Application;
 using TuduBot.Bot;
 using TuduBot.Infrastructure;
 using TuduBot.Infrastructure.Persistence;
@@ -11,6 +12,7 @@ builder.Services.AddDbContext<TuduBotDbContext>(options =>
     .UseSnakeCaseNamingConvention());
 
 builder.Services.AddInfrastructure();
+builder.Services.AddApplication();
 
 var host = builder.Build();
 host.Run();
