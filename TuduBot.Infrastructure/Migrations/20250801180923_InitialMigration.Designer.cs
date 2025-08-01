@@ -12,8 +12,8 @@ using TuduBot.Infrastructure.Persistence;
 namespace TuduBot.Infrastructure.Migrations
 {
     [DbContext(typeof(TuduBotDbContext))]
-    [Migration("20250801095431_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250801180923_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,26 +29,33 @@ namespace TuduBot.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
 
                     b.Property<string>("DefaultProjectId")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("default_project_id");
 
                     b.Property<long>("TelegramUserId")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("telegram_user_id");
 
                     b.Property<string>("TodoistApiKey")
-                        .HasColumnType("text");
+                        .HasColumnType("text")
+                        .HasColumnName("todoist_api_key");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_at");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasName("pk_users");
 
-                    b.ToTable("Users");
+                    b.ToTable("users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

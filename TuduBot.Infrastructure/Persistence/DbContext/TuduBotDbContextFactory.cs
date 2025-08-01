@@ -18,7 +18,9 @@ public class TuduBotDbContextFactory : IDesignTimeDbContextFactory<TuduBotDbCont
             .Build();
 
         var optionsBuilder = new DbContextOptionsBuilder<TuduBotDbContext>();
-        optionsBuilder.UseNpgsql(config.GetConnectionString("Postgres"));
+        optionsBuilder
+        .UseNpgsql(config.GetConnectionString("Postgres"))
+        .UseSnakeCaseNamingConvention();
 
         return new TuduBotDbContext(optionsBuilder.Options);
     }
