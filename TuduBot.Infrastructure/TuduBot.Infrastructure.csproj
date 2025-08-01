@@ -1,5 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\TuduBot.Application\TuduBot.Application.csproj" />
+    <ProjectReference Include="..\TuduBot.Domain\TuduBot.Domain.csproj" />
+    <ProjectReference Include="..\TuduBot.Shared\TuduBot.Shared.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
