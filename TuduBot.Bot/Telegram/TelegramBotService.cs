@@ -8,15 +8,17 @@ namespace TuduBot.Bot.Telegram;
 public class TelegramBotService : BackgroundService
 {
     private readonly ITelegramBotClient _botClient;
+    private readonly IServiceScopeFactory _scopeFactory;
     private readonly UpdateHandler _updateHandler;
     private readonly ILogger<TelegramBotService> _logger;
 
-    public TelegramBotService(ITelegramBotClient botClient, UpdateHandler updateHandler, ILogger<TelegramBotService> logger)
+    public TelegramBotService(ITelegramBotClient botClient, IServiceScopeFactory scopeFactory, ILogger<TelegramBotService> logger)
     {
         _botClient = botClient;
-        _updateHandler = updateHandler;
+        _scopeFactory = scopeFactory;
         _logger = logger;
     }
+
 
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -39,13 +41,16 @@ public class TelegramBotService : BackgroundService
     {
         try
         {
-            await _updateHandler.Handle(update, cancellationToken);
+            using var scope = _scopeFactory.CreateScope();
+            var handler = scope.ServiceProvider.GetRequiredService<UpdateHandler>();
+            await handler.Handle(update, cancellationToken);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error handling update.");
+            _logger.LogError(ex, "Error handling update");
         }
     }
+
 
     private Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
     {
