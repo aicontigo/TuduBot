@@ -9,7 +9,6 @@ public class TelegramBotService : BackgroundService
 {
     private readonly ITelegramBotClient _botClient;
     private readonly IServiceScopeFactory _scopeFactory;
-    private readonly UpdateHandler _updateHandler;
     private readonly ILogger<TelegramBotService> _logger;
 
     public TelegramBotService(ITelegramBotClient botClient, IServiceScopeFactory scopeFactory, ILogger<TelegramBotService> logger)

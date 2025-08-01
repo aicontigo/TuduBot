@@ -18,7 +18,7 @@ builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
 
 builder.Services.AddSingleton<ITelegramBotClient>(_ =>
-    new TelegramBotClient(builder.Configuration["Telegram:BotToken"]));
+    new TelegramBotClient(builder.Configuration["Telegram:BotToken"] ?? throw new InvalidOperationException("Telegram Bot Token is not configured.")));
 
 builder.Services.AddHostedService<TelegramBotService>();
 builder.Services.AddScoped<ICommandHandler, StartCommandHandler>();
