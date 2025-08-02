@@ -10,6 +10,8 @@ public static class DependencyInjection
     {
         services.AddScoped<IStartHandler, StartHandler>();
         services.AddScoped<ISetApiKeyHandler, SetApiKeyHandler>();
+        services.AddScoped<IGetProjectsHandler, GetProjectsHandler>();
+
         return services;
     }
 }

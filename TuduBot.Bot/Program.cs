@@ -24,6 +24,7 @@ builder.Services.AddHostedService<TelegramBotService>();
 builder.Services.AddScoped<ICommandHandler, StartCommandHandler>();
 builder.Services.AddScoped<UpdateHandler>();
 builder.Services.AddScoped<ICommandHandler, SetKeyCommandHandler>();
+builder.Services.AddScoped<ICommandHandler, ProjectsCommandHandler>();
 
 
 
