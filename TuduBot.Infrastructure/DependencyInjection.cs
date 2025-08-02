@@ -12,6 +12,5 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICryptoService, CryptoService>();
         return services;
-        RandomNumberGenerator.Seed = new Random().Next();
     }
 }
