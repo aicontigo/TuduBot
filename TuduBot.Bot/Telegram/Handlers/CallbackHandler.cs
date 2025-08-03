@@ -17,6 +17,9 @@ public class CallbackHandler
 
     public async Task Handle(CallbackQuery callback, CancellationToken cancellationToken)
     {
+        if (callback == null || callback.From == null || callback.Message == null)
+            return;
+            
         if (callback.Data?.StartsWith("set_project:") != true)
             return;
 
