@@ -31,6 +31,8 @@ builder.Services.AddScoped<ICommandHandler, SetProjectCommandHandler>();
 builder.Services.AddScoped<CallbackHandler>();
 builder.Services.AddScoped<ICommandHandler, AddCommandHandler>();
 builder.Services.AddScoped<IAddTaskHandler, AddTaskHandler>();
+builder.Services.AddScoped<ICommandHandler, DeleteKeyCommandHandler>();
+builder.Services.AddScoped<IDeleteApiKeyHandler, DeleteApiKeyHandler>();
 
 
 
