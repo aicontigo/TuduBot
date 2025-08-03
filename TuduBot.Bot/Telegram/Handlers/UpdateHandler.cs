@@ -7,14 +7,22 @@ namespace TuduBot.Bot.Telegram;
 public class UpdateHandler
 {
     private readonly IEnumerable<ICommandHandler> _commandHandlers;
+    private readonly CallbackHandler _callbackHandler;
 
-    public UpdateHandler(IEnumerable<ICommandHandler> commandHandlers)
+    public UpdateHandler(IEnumerable<ICommandHandler> commandHandlers, CallbackHandler callbackHandler)
     {
         _commandHandlers = commandHandlers;
+        _callbackHandler = callbackHandler;
     }
 
     public async Task Handle(Update update, CancellationToken cancellationToken)
     {
+        if (update.Type == UpdateType.CallbackQuery && update.CallbackQuery != null)
+        {
+            await _callbackHandler.Handle(update.CallbackQuery, cancellationToken);
+            return;
+        }
+
         if (update.Type != UpdateType.Message)
             return;
 
