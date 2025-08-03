@@ -1,6 +1,8 @@
+using TuduBot.Application.Models;
+
 namespace TuduBot.Application.Interfaces;
 
 public interface IAddTaskHandler
 {
-    // Define methods for handling the start command
+    Task Handle(AddTaskRequest request, CancellationToken cancellationToken);
 }

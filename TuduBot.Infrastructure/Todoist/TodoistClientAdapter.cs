@@ -11,4 +11,12 @@ public class TodoistClientAdapter : ITodoistClientAdapter
         var client = new TodoistClient(token);
         return await client.Projects.GetAsync(cancellationToken);
     }
+
+    public async Task AddTask(string token, string content, string projectId, CancellationToken cancellationToken)
+    {
+        var client = new TodoistClient(token);
+        var task = new AddItem(content, new ComplexId(projectId));
+        await client.Items.AddAsync(task, cancellationToken);
+    }
+
 }

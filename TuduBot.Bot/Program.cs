@@ -1,6 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Telegram.Bot;
 using TuduBot.Application;
+using TuduBot.Application.Handlers;
+using TuduBot.Application.Interfaces;
 using TuduBot.Bot;
 using TuduBot.Bot.Telegram;
 using TuduBot.Bot.Telegram.Handlers;
@@ -27,6 +29,8 @@ builder.Services.AddScoped<ICommandHandler, SetKeyCommandHandler>();
 builder.Services.AddScoped<ICommandHandler, ProjectsCommandHandler>();
 builder.Services.AddScoped<ICommandHandler, SetProjectCommandHandler>();
 builder.Services.AddScoped<CallbackHandler>();
+builder.Services.AddScoped<ICommandHandler, AddCommandHandler>();
+builder.Services.AddScoped<IAddTaskHandler, AddTaskHandler>();
 
 
 
