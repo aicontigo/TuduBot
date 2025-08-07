@@ -11,7 +11,9 @@ public class TelegramBotService : BackgroundService
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly ILogger<TelegramBotService> _logger;
 
-    public TelegramBotService(ITelegramBotClient botClient, IServiceScopeFactory scopeFactory, ILogger<TelegramBotService> logger)
+    public TelegramBotService(ITelegramBotClient botClient,
+        IServiceScopeFactory scopeFactory,
+        ILogger<TelegramBotService> logger)
     {
         _botClient = botClient;
         _scopeFactory = scopeFactory;
@@ -19,12 +21,15 @@ public class TelegramBotService : BackgroundService
     }
 
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         var receiverOptions = new ReceiverOptions
         {
             AllowedUpdates = new[] { UpdateType.Message, UpdateType.CallbackQuery }
         };
+
+        var commands = _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<BotCommandRegistrar>();
+        await commands.RegisterCommands(stoppingToken);
 
         _botClient.StartReceiving(
             HandleUpdateAsync,
@@ -33,7 +38,7 @@ public class TelegramBotService : BackgroundService
             cancellationToken: stoppingToken);
 
         _logger.LogInformation("🤖 Telegram bot started.");
-        return Task.CompletedTask;
+        return; 
     }
 
     private async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)

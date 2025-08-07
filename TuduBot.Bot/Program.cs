@@ -34,6 +34,7 @@ builder.Services.AddScoped<IAddTaskHandler, AddTaskHandler>();
 builder.Services.AddScoped<ICommandHandler, DeleteKeyCommandHandler>();
 builder.Services.AddScoped<IDeleteApiKeyHandler, DeleteApiKeyHandler>();
 builder.Services.AddScoped<ICommandHandler, MenuCommandHandler>();
+builder.Services.AddScoped<BotCommandRegistrar>();
 
 
 
